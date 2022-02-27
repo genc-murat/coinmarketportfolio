@@ -1,0 +1,57 @@
+﻿@page "/myassets"
+@attribute [Authorize]
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            24H
+        </th>
+        <th>
+            Holdings
+        </th>
+        <th>
+            Avg.Buy Price
+        </th>
+        <th>
+            Profit/Loss
+        </th>
+    </tr>
+    @if (Coins != null)
+    {
+        foreach (var coin in Coins.GroupBy(x => x.Symbol))
+        {
+            var listingItem = GetListingItem(coin.Key);
+            var total = coin.Sum(x => x.PurchasePrice * x.Quantity);
+            var quantity = coin.Sum(x => x.Quantity);
+            var currentTotal = quantity * listingItem.Quote.USD.Price;
+            <tr>
+                <td>
+                    @coin.Key
+                </td>
+                <td>
+                    $ @total
+                </td>
+                <td>@listingItem.Quote.USD.PercentChange24h %</td>
+                <td>
+                    @quantity @coin.Key
+                </td>
+                <td>
+                    @(total / quantity)
+                </td>
+                <td>
+                   $ @(total-currentTotal)
+                </td>
+            </tr>
+
+
+        }
+    }
+
+
+</table>

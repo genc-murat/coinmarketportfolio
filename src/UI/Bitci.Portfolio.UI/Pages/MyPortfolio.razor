@@ -1,0 +1,18 @@
+﻿@page "/myportfolio"
+@attribute [Authorize]
+<div class="row">
+    <div class="col-2">
+        My Main Portfolio
+    </div>
+    <div class="col-8">
+        Current Balance<br />
+        $ @Total
+        <hr />
+        $ @(CurrentTotal-Total)
+    </div>
+    <div class="col-2">
+        <ListingDialog />
+    </div>
+</div>
+
+

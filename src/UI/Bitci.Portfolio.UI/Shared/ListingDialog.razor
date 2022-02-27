@@ -1,0 +1,113 @@
+﻿
+<button class="btn btn-sm btn-primary" @onclick="Show">Add New</button>
+
+
+@if (ShowDialog)
+{
+    <div class="modal fade show" id="modalList" style="display:block" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Select coin</h4>
+
+                </div>
+
+                <div class="modal-body">
+                    <p>
+                        @if (Coins == null)
+                        {
+                            <span class="badge bg-warning text-dark">Loading...</span>
+                        }
+                        else
+                        {
+                            <div class="">
+                                <ul class="list-group">
+                                    @foreach (var coin in Coins)
+                                    {
+                                        <li class="list-group-item">
+                                            @coin.Name @coin.Symbol
+
+                                            <button class="btn btn-sm btn-primary float-end" @onclick="(e=> Select(coin))">Select</button>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </p>
+                </div>
+
+
+                <div class="modal-footer">
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+@if (AddDialog)
+{
+    <div class="modal fade show" id="modalList" style="display:block" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+
+           
+            <div class="modal-header">
+                    <h4 class="modal-title">Add coin</h4>
+                 
+                </div>
+
+              
+            <div class="modal-body">
+
+                    <EditForm Model="AddCoin" OnValidSubmit="ExecuteAddCoin" class="card card-body bg-light mt-5">
+
+                        <div class="form-group row">
+                            <label for="coin" class="col-md-2 col-form-label">Coin:</label>
+                            <div class="col-md-10">
+
+                                <label>@AddCoin.Symbol</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="quantity" class="col-md-2 col-form-label">Quantity:</label>
+                            <div class="col-md-10">
+                                <InputNumber id="quantity" class="form-control" @bind-Value="AddCoin.Quantity" />
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="date" class="col-md-2 col-form-label">Date:</label>
+                            <div class="col-md-10">
+                                <InputDate id="date" class="form-control" @bind-Value="AddCoin.PurchaseDate" />
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="price" class="col-md-2 col-form-label">Price:</label>
+                            <div class="col-md-10">
+                                <InputNumber id="price" class="form-control" @bind-Value="AddCoin.PurchasePrice" />
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </EditForm>
+
+                </div>
+
+             
+            <div class="modal-footer">
+               
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
